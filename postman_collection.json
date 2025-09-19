@@ -1,0 +1,118 @@
+{
+  "info": {
+    "name": "Express Gremlin SOAP Demo",
+    "description": "Colección para probar el API SOAP con Gremlin",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Get WSDL",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/wsdl",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["wsdl"]
+        }
+      }
+    },
+    {
+      "name": "SOAP - CreatePerson",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "text/xml; charset=utf-8"
+          },
+          {
+            "key": "SOAPAction",
+            "value": "urn:people:v1#CreatePerson"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:peo=\"urn:people:v1\">\n  <soapenv:Header/>\n  <soapenv:Body>\n    <peo:CreatePersonRequest>\n      <peo:name>Juan Pérez</peo:name>\n      <peo:email>juan@example.com</peo:email>\n    </peo:CreatePersonRequest>\n  </soapenv:Body>\n</soapenv:Envelope>"
+        },
+        "url": {
+          "raw": "http://localhost:3000/soap",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["soap"]
+        }
+      }
+    },
+    {
+      "name": "SOAP - GetPersonById",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "text/xml; charset=utf-8"
+          },
+          {
+            "key": "SOAPAction",
+            "value": "urn:people:v1#GetPersonById"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:peo=\"urn:people:v1\">\n  <soapenv:Header/>\n  <soapenv:Body>\n    <peo:GetPersonByIdRequest>\n      <peo:id>REPLACE_WITH_ACTUAL_ID</peo:id>\n    </peo:GetPersonByIdRequest>\n  </soapenv:Body>\n</soapenv:Envelope>"
+        },
+        "url": {
+          "raw": "http://localhost:3000/soap",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["soap"]
+        }
+      }
+    },
+    {
+      "name": "SOAP - LinkPersons",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "text/xml; charset=utf-8"
+          },
+          {
+            "key": "SOAPAction",
+            "value": "urn:people:v1#LinkPersons"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:peo=\"urn:people:v1\">\n  <soapenv:Header/>\n  <soapenv:Body>\n    <peo:LinkPersonsRequest>\n      <peo:sourceId>REPLACE_WITH_SOURCE_ID</peo:sourceId>\n      <peo:targetId>REPLACE_WITH_TARGET_ID</peo:targetId>\n      <peo:relation>KNOWS</peo:relation>\n    </peo:LinkPersonsRequest>\n  </soapenv:Body>\n</soapenv:Envelope>"
+        },
+        "url": {
+          "raw": "http://localhost:3000/soap",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["soap"]
+        }
+      }
+    }
+  ]
+}

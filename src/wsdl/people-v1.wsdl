@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="urn:people:v1"
+             targetNamespace="urn:people:v1">
+
+  <types>
+    <xs:schema targetNamespace="urn:people:v1" elementFormDefault="qualified">
+
+      <xs:complexType name="Person">
+        <xs:sequence>
+          <xs:element name="id" type="xs:string" />
+          <xs:element name="name" type="xs:string" />
+          <xs:element name="email" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:element name="CreatePersonRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="email" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CreatePersonResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="person" type="tns:Person" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="GetPersonByIdRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetPersonByIdResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="person" type="tns:Person" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element name="LinkPersonsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="sourceId" type="xs:string" />
+            <xs:element name="targetId" type="xs:string" />
+            <xs:element name="relation" type="xs:string" minOccurs="0" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LinkPersonsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ok" type="xs:boolean" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+    </xs:schema>
+  </types>
+
+  <message name="CreatePersonRequestMessage">
+    <part name="parameters" element="tns:CreatePersonRequest" />
+  </message>
+  <message name="CreatePersonResponseMessage">
+    <part name="parameters" element="tns:CreatePersonResponse" />
+  </message>
+
+  <message name="GetPersonByIdRequestMessage">
+    <part name="parameters" element="tns:GetPersonByIdRequest" />
+  </message>
+  <message name="GetPersonByIdResponseMessage">
+    <part name="parameters" element="tns:GetPersonByIdResponse" />
+  </message>
+
+  <message name="LinkPersonsRequestMessage">
+    <part name="parameters" element="tns:LinkPersonsRequest" />
+  </message>
+  <message name="LinkPersonsResponseMessage">
+    <part name="parameters" element="tns:LinkPersonsResponse" />
+  </message>
+
+  <portType name="PeopleServicePortType">
+    <operation name="CreatePerson">
+      <input message="tns:CreatePersonRequestMessage" />
+      <output message="tns:CreatePersonResponseMessage" />
+    </operation>
+    <operation name="GetPersonById">
+      <input message="tns:GetPersonByIdRequestMessage" />
+      <output message="tns:GetPersonByIdResponseMessage" />
+    </operation>
+    <operation name="LinkPersons">
+      <input message="tns:LinkPersonsRequestMessage" />
+      <output message="tns:LinkPersonsResponseMessage" />
+    </operation>
+  </portType>
+
+  <binding name="PeopleServiceBinding" type="tns:PeopleServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="CreatePerson">
+      <soap:operation soapAction="urn:people:v1#CreatePerson" />
+      <input><soap:body use="literal" /></input>
+      <output><soap:body use="literal" /></output>
+    </operation>
+    <operation name="GetPersonById">
+      <soap:operation soapAction="urn:people:v1#GetPersonById" />
+      <input><soap:body use="literal" /></input>
+      <output><soap:body use="literal" /></output>
+    </operation>
+    <operation name="LinkPersons">
+      <soap:operation soapAction="urn:people:v1#LinkPersons" />
+      <input><soap:body use="literal" /></input>
+      <output><soap:body use="literal" /></output>
+    </operation>
+  </binding>
+
+  <service name="PeopleService">
+    <port name="PeopleServicePort" binding="tns:PeopleServiceBinding">
+      <soap:address location="http://localhost:3000/soap" />
+    </port>
+  </service>
+
+</definitions>
+

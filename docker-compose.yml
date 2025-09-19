@@ -1,0 +1,16 @@
+services:
+  api:
+    build: .
+    environment:
+      - PORT=3000
+      - GREMLIN_ENDPOINT=${GREMLIN_ENDPOINT:-ws://gremlin:8182/gremlin}
+      - GREMLIN_TLS=${GREMLIN_TLS:-false}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - gremlin
+  gremlin:
+    image: tinkerpop/gremlin-server:3.7.2
+    ports:
+      - "8182:8182"
+
